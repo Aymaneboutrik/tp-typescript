@@ -1,5 +1,6 @@
 import { WizardRepository } from "./wizard-repository";
 import { SpellRepository } from "./spell-repository";
+import { Cache } from "./decorators";
 import type { NewWizard, SpellCastEvent, AcademyEvent } from "./types";
 
 const repo = new WizardRepository();
@@ -47,3 +48,19 @@ try {
 }
 
 console.log("Sorts enregistrés :", spells.findAll());
+
+// Exercice 5
+class SpellCalculator {
+  @Cache
+  calculatePower(basePower: number, multiplier: number): number {
+    console.log("Calculating...");
+
+    return basePower * multiplier;
+  }
+}
+
+const calculator = new SpellCalculator();
+
+console.log(calculator.calculatePower(10, 3));
+console.log(calculator.calculatePower(10, 3));
+console.log(calculator.calculatePower(5, 2));
