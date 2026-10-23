@@ -9,7 +9,6 @@ export interface Wizard {
 // Exercice 1 : l'appelant ne fournit pas l'identifiant
 export type NewWizard = Omit<Wizard, "id">;
 
-// Servira à l'exercice 3
 export type AcademyEvent =
   | { type: "enrollment"; wizard: Wizard }
   | { type: "spell-cast"; wizardId: number; spell: string; power: number };

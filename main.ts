@@ -1,15 +1,15 @@
-import { Repository } from "./repository";
-import { Wizard, NewWizard } from "./types";
+import { WizardRepository } from "./wizard-repository";
+import { NewWizard } from "./types";
 
-const repo = new Repository<Wizard>();
+const repo = new WizardRepository();
 
 const harry: NewWizard = { name: "Harry Potter", house: "Gryffindor" };
-const saved = repo.add(harry);
+const saved = repo.addWizard(harry);
 console.log("Sorcier enregistré :", saved);
 
-repo.add({ name: "Draco Malfoy", house: "Slytherin" });
+repo.addWizard({ name: "Draco Malfoy", house: "Slytherin" });
 console.log("Tous les sorciers :", repo.findAll());
 
-// Ces lignes doivent être refusées par le compilateur (décommente pour tester) :
-// repo.add({ id: 99, name: "Hermione", house: "Gryffindor" });
-// repo.add({ name: "Ron", house: "Durmstrang" });
+// Doivent être refusés par le compilateur (décommente pour tester) :
+// repo.addWizard({ id: 99, name: "Hermione", house: "Gryffindor" });
+// repo.addWizard({ name: "Ron", house: "Durmstrang" });

@@ -1,5 +1,5 @@
 export class Repository<T extends { id: number }> {
-  private items: T[] = [];
+  protected items: T[] = [];
   private nextId = 1;
 
   add(item: Omit<T, "id">): T {
