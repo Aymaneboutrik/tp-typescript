@@ -1,5 +1,5 @@
 import { WizardRepository } from "./wizard-repository";
-import { NewWizard } from "./types";
+import type { NewWizard, SpellCastEvent, AcademyEvent } from "./types";
 
 const repo = new WizardRepository();
 
@@ -16,8 +16,23 @@ console.log("Tous les sorciers :", repo.findAll());
 // Exercice 2
 console.log("Gryffindor :", repo.findByHouse("Gryffindor"));
 console.log("Slytherin :", repo.findByHouse("Slytherin"));
-console.log("Hufflepuff :", repo.findByHouse("Hufflepuff")); // []
+console.log("Hufflepuff :", repo.findByHouse("Hufflepuff"));
+
+// Exercice 3 : ce gestionnaire n'accepte que les événements "spell-cast"
+function handleSpellCast(event: SpellCastEvent): void {
+  console.log(`Wizard ${event.wizardId} cast ${event.spellName}`);
+}
+
+handleSpellCast({
+  type: "spell-cast",
+  wizardId: 1,
+  spellName: "Expelliarmus",
+});
+
+// Un événement de l'union complète reste valide pour AcademyEvent :
+const levelUp: AcademyEvent = { type: "level-up", wizardId: 1, newLevel: 2 };
+console.log("Autre événement de l'académie :", levelUp);
 
 // Doivent être refusés par le compilateur (décommente pour tester) :
-// repo.addWizard({ id: 99, name: "Ron", house: "Gryffindor" });
-// repo.findByHouse("Durmstrang");
+// handleSpellCast({ type: "level-up", wizardId: 1, newLevel: 2 });
+// handleSpellCast({ type: "wizard-expelled", wizardId: 1 });
