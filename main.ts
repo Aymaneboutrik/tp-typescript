@@ -1,4 +1,5 @@
 import { WizardRepository } from "./wizard-repository";
+import { SpellRepository } from "./spell-repository";
 import type { NewWizard, SpellCastEvent, AcademyEvent } from "./types";
 
 const repo = new WizardRepository();
@@ -18,7 +19,7 @@ console.log("Gryffindor :", repo.findByHouse("Gryffindor"));
 console.log("Slytherin :", repo.findByHouse("Slytherin"));
 console.log("Hufflepuff :", repo.findByHouse("Hufflepuff"));
 
-// Exercice 3 : ce gestionnaire n'accepte que les événements "spell-cast"
+// Exercice 3
 function handleSpellCast(event: SpellCastEvent): void {
   console.log(`Wizard ${event.wizardId} cast ${event.spellName}`);
 }
@@ -29,10 +30,20 @@ handleSpellCast({
   spellName: "Expelliarmus",
 });
 
-// Un événement de l'union complète reste valide pour AcademyEvent :
 const levelUp: AcademyEvent = { type: "level-up", wizardId: 1, newLevel: 2 };
 console.log("Autre événement de l'académie :", levelUp);
 
-// Doivent être refusés par le compilateur (décommente pour tester) :
-// handleSpellCast({ type: "level-up", wizardId: 1, newLevel: 2 });
-// handleSpellCast({ type: "wizard-expelled", wizardId: 1 });
+// Exercice 4
+const spells = new SpellRepository();
+
+spells.add({ id: 102, name: "Protego", category: "defense", power: 50 });
+console.log("Sort valide ajouté");
+
+try {
+  spells.add({ id: 103, name: "Invalid Spell", category: "attack", power: -10 });
+  console.log("Sort invalide ajouté (ne devrait pas arriver)");
+} catch (error) {
+  console.log("Sort refusé :", (error as Error).message);
+}
+
+console.log("Sorts enregistrés :", spells.findAll());

@@ -16,3 +16,13 @@ export type AcademyEvent =
 
 // Exercice 3 : on extrait uniquement l'événement "spell-cast" de l'union
 export type SpellCastEvent = Extract<AcademyEvent, { type: "spell-cast" }>;
+
+// Exercice 4
+export type SpellCategory = "attack" | "defense" | "utility";
+
+export interface Spell {
+  id: number;
+  name: string;
+  category: SpellCategory;
+  power: number;
+}
