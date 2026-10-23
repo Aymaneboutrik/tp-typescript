@@ -4,6 +4,8 @@ export interface Wizard {
   id: number;
   name: string;
   house: House;
+  level: number;
+  active: boolean;
 }
 
 // Exercice 1 : l'appelant ne fournit pas l'identifiant
